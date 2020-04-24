@@ -1,0 +1,17 @@
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin-->selain: main.js
+
+selain alkaa lukemaan ja suorittamaan javascript-koodia. Selai pyytää JSON-dataa palvelimelta.
+
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: [{"content":"HTML is easy" .......]
+
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
+palvelin->selain: new_note
+
+tässä kohtaa tapahtuu redirectaus: palvelin pyytää selainta tekemään uuden GET-pyynnön HTML-tiedostoon notes.
+Selain lataa uudelleen notes-sivun sekä css, js ja json tiedostot

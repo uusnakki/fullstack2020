@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Global warming",
-    "author": "Testi Tee",
-    "url": "http://www.tamaontesti.com",
-    "likes": "2"
+    "title": "After refactory",
+    "author": "Fullstack Dude 3000",
+    "url": "http://www.stackoverflow.com",
+    "likes": "999"
 }

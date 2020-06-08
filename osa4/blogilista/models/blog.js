@@ -1,15 +1,6 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const url = process.env.MONGODB_URI
-console.log(require('dotenv').config())
-console.log('connecting to', url)
-
-const mongoUrl = process.env.MONGODB_URI
-console.log(require('dotenv').config())
-console.log('connecting to', mongoUrl)
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true})
-
 const blogSchema = mongoose.Schema({
     title: String,
     author: String,

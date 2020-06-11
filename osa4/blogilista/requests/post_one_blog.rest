@@ -1,9 +1,12 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpdGVwcG8iLCJpZCI6IjVlZTFlNTE2YzYwNTBkMTQ5ODA3MjlmZSIsImlhdCI6MTU5MTg2NDg5M30.RrUe6IPF-v6IYuJSzbIsWKTS2eVXTa2avBEjug1WkWA
 
 {
-    "title": "After refactory",
-    "author": "Fullstack Dude 3000",
-    "url": "http://www.stackoverflow.com",
-    "likes": "999"
+    "title": "This might be test",
+    "user": "testiteppo",
+    "author": "Testi Teppo",
+    "url": "http://www.yolo.com",
+    "likes": "6",
+    "userId": "5ee1e516c6050d14980729fe"
 }

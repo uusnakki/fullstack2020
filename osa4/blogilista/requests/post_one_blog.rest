@@ -1,12 +1,12 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpdGVwcG8iLCJpZCI6IjVlZTFlNTE2YzYwNTBkMTQ5ODA3MjlmZSIsImlhdCI6MTU5MTg2NDg5M30.RrUe6IPF-v6IYuJSzbIsWKTS2eVXTa2avBEjug1WkWA
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRvaW1paWtvIiwiaWQiOiI1ZWU4N2UwY2Y4MjE2OTBjOWMwMWVkYTMiLCJpYXQiOjE1OTIyOTUwNjB9.w-v2V-AvNA9wiTO7ZD84vliFmfEY3a0pwbEQ0RbjyPE
 
 {
-    "title": "This might be test",
-    "user": "testiteppo",
-    "author": "Testi Teppo",
+    "title": "There is your test test",
+    "user": "toimiiko",
+    "author": "Tommi Toimii",
     "url": "http://www.yolo.com",
     "likes": "6",
-    "userId": "5ee1e516c6050d14980729fe"
+    "userId": "5ee87e0cf821690c9c01eda3"
 }

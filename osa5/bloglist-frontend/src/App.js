@@ -22,10 +22,9 @@ const App = () => {
     blogService
       .getAll()
       .then(blogs =>
-        setBlogs(blogs)
+        setBlogs(blogs.sort((a, b) => b.likes - a.likes))
       )
   }, [])
-
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
@@ -80,6 +79,22 @@ const App = () => {
     }, 5000)
   }
 
+  const handleDeleteBlog = async (blog) => {
+    try {
+      window.confirm('Do you wish to delete this blog?')
+      console.log('testaillaan toimiiko!')
+      blogService.setToken(user.token)
+      await blogService.destroy(blog.id)
+      setMessage(`${blog.title} deleted`)
+      setBlogs(blogs.filter(b => b.id !== blog.id))
+      console.log('toimii!')
+    } catch (error) {
+      setError('Error with delete.')
+      setTimeout(() => {
+        setError(null)
+      }, 5000)
+    }
+  }
 
   const blogForm = () => (
     <Togglable buttonLabel="new blog" ref={blogFormRef}>
@@ -94,7 +109,7 @@ const App = () => {
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -103,7 +118,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -136,11 +151,15 @@ const App = () => {
       <Notification message={message} />
       <Error message={error} />
 
-      {user.name} logged in {logoutForm()}
+      {user.name} logged in
+      {logoutForm()}
       {blogForm()}
       <h2>blogs</h2>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id}
+          blog={blog}
+          handleDeleteBlog={handleDeleteBlog}
+        />
       )}
     </div>
   )

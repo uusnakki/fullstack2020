@@ -21,4 +21,9 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
-export default { getAll, create, setToken }
+const destroy = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`, token)
+  return request.then(response => response.data)
+}
+
+export default { getAll, create, setToken, destroy}

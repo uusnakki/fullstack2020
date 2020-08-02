@@ -8,5 +8,5 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRva
     "author": "Tommi Toimii",
     "url": "http://www.yolo.com",
     "likes": "6",
-    "userId": "5ee87e0cf821690c9c01eda3"
+    "userId": "5f259886a5dc8e15a0ad13e5"
 }

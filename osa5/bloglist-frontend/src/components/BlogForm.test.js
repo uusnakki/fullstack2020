@@ -6,8 +6,15 @@ import BlogForm from './BlogForm'
 test('BlogForm calls onSubmit', async () => {
   const createBlog = jest.fn()
 
+  const userTest = {
+    name: 'Matti Meikäläinen',
+    username: 'matti',
+    password:'salasana',
+    id:'somethingwithnumbershere'
+  }
+
   const component = render(
-    <BlogForm createBlog={createBlog} />
+    <BlogForm createBlog={createBlog} user={userTest}/>
   )
 
   const title = component.container.querySelector('#title')

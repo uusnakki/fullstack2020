@@ -1,20 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react'
+import Image from './library.jpg'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
 import BlogForm from './components/BlogForm'
+import LoginForm from './components/LoginForm'
 import Error from './components/Error'
-import loginService from './services/login'
 import './index.css'
 import Togglable from './components/Togglable'
+import { useSelector, useDispatch } from 'react-redux'
+import { setNotification } from './reducers/notificationReducer'
+
 
 const App = () => {
+  const notification = useSelector(state => state.notification.text)
+  const error = useSelector(state => state.notification.text)
+  const dispatch = useDispatch()
+
   const [blogs, setBlogs] = useState([])
-  const [message, setMessage] = useState(null)
-  const [error, setError] = useState(null)
   const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+
 
   const blogFormRef = useRef()
 
@@ -40,42 +45,18 @@ const App = () => {
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setMessage('Blog ' + blogObject.title + ' created succesfully!')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
       })
+    dispatch(setNotification('Blog ' + blogObject.title + ' created succesfully!'))
+    setTimeout(() => {
+      dispatch(setNotification(null))
+    }, 5000)
   }
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({
-        username, password,
-      })
-      window.localStorage.setItem(
-        'loggedBlogappUser', JSON.stringify(user)
-      )
-      blogService.setToken(user.token)
-      setUser(user)
-      setUsername('')
-      setPassword('')
-      setMessage('Logged in!')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
-    } catch (exception) {
-      setError('wrong username or password')
-      setTimeout(() => {
-        setError(null)
-      }, 5000)
-    }
-  }
   const handleLogout = async () => {
     window.localStorage.removeItem('loggedBlogappUser')
-    setMessage('Bye bye!')
+    dispatch(setNotification('Bye Bye :)'))
     setTimeout(() => {
-      setMessage(null)
+      dispatch(setNotification(null))
     }, 5000)
   }
 
@@ -85,13 +66,16 @@ const App = () => {
       console.log('testaillaan toimiiko!')
       blogService.setToken(user.token)
       await blogService.destroy(blog.id)
-      setMessage(`${blog.title} deleted`)
+      dispatch(setNotification(`${blog.title} deleted`))
+      setTimeout(() => {
+        dispatch(setNotification(null))
+      }, 5000)
       setBlogs(blogs.filter(b => b.id !== blog.id))
       console.log('toimii!')
-    } catch (error) {
-      setError('Error with delete.')
+    } catch (exception) {
+      dispatch(setNotification('Error with delete'))
       setTimeout(() => {
-        setError(null)
+        dispatch(setNotification(null))
       }, 5000)
     }
   }
@@ -105,31 +89,6 @@ const App = () => {
     </Togglable>
   )
 
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input
-          id='username'
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          id='password'
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button id="login-button" type="submit">login</button>
-    </form>
-  )
   const logoutForm = () => (
     <form onSubmit={handleLogout}>
       <button type="submit">logout</button>
@@ -140,19 +99,19 @@ const App = () => {
     return (
       <div>
         <h2>Log in to application</h2>
-        <Notification message={message} />
         <Error message={error} />
-        {loginForm()}
+        <LoginForm setUser={setUser}/>
       </div>
     )
   }
 
   return (
-    <div>
+    <div className="container" style={{ backgroundImage: `url(${Image}`,
+      color: 'white',
+      fontSize: 18
+    }}>
       <h2>Awesome blog website</h2>
-      <Notification message={message} />
-      <Error message={error} />
-
+      <Notification message={notification} />
       {user.name} logged in
       {logoutForm()}
       {blogForm()}
